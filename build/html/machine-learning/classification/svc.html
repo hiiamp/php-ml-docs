@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <title>Support Vector Classification &#8212; Tài liệu php-ml-vi 1.0</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="support-vector-classification">
+<h1>Support Vector Classification<a class="headerlink" href="#support-vector-classification" title="Permalink to this headline">¶</a></h1>
+<p>Classifier implementing Support Vector Machine based on libsvm.</p>
+<div class="section" id="constructor-parameters">
+<h2>Constructor Parameters<a class="headerlink" href="#constructor-parameters" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>$kernel (int) - kernel type to be used in the algorithm (default
+Kernel::RBF)</p></li>
+<li><p>$cost (float) - parameter C of C-SVC (default 1.0)</p></li>
+<li><p>$degree (int) - degree of the Kernel::POLYNOMIAL function (default 3)</p></li>
+<li><p>$gamma (float) - kernel coefficient for ‘Kernel::RBF’,
+‘Kernel::POLYNOMIAL’ and ‘Kernel::SIGMOID’. If gamma is ‘null’ then
+1/features will be used instead.</p></li>
+<li><p>$coef0 (float) - independent term in kernel function. It is only
+significant in ‘Kernel::POLYNOMIAL’ and ‘Kernel::SIGMOID’ (default
+0.0)</p></li>
+<li><p>$tolerance (float) - tolerance of termination criterion (default
+0.001)</p></li>
+<li><p>$cacheSize (int) - cache memory size in MB (default 100)</p></li>
+<li><p>$shrinking (bool) - whether to use the shrinking heuristics (default
+true)</p></li>
+<li><p>$probabilityEstimates (bool) - whether to enable probability
+estimates (default false)</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$classifier = new SVC(Kernel::LINEAR, $cost = 1000);
+$classifier = new SVC(Kernel::RBF, $cost = 1000, $degree = 3, $gamma = 6);
+</pre></div>
+</div>
+</div>
+<div class="section" id="train">
+<h2>Train<a class="headerlink" href="#train" title="Permalink to this headline">¶</a></h2>
+<p>To train a classifier simply provide train samples and labels (as
+<code class="docutils literal notranslate"><span class="pre">array</span></code>). Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>use Phpml\Classification\SVC;
+use Phpml\SupportVectorMachine\Kernel;
+
+$samples = [[1, 3], [1, 4], [2, 4], [3, 1], [4, 1], [4, 2]];
+$labels = [&#39;a&#39;, &#39;a&#39;, &#39;a&#39;, &#39;b&#39;, &#39;b&#39;, &#39;b&#39;];
+
+$classifier = new SVC(Kernel::LINEAR, $cost = 1000);
+$classifier-&gt;train($samples, $labels);
+</pre></div>
+</div>
+<p>You can train the classifier using multiple data sets, predictions will
+be based on all the training data.</p>
+</div>
+<div class="section" id="predict">
+<h2>Predict<a class="headerlink" href="#predict" title="Permalink to this headline">¶</a></h2>
+<p>To predict sample label use <code class="docutils literal notranslate"><span class="pre">predict</span></code> method. You can provide one
+sample or array of samples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$classifier-&gt;predict([3, 2]);
+// return &#39;b&#39;
+
+$classifier-&gt;predict([[3, 2], [1, 5]]);
+// return [&#39;b&#39;, &#39;a&#39;]
+</pre></div>
+</div>
+</div>
+<div class="section" id="probability-estimation">
+<h2>Probability estimation<a class="headerlink" href="#probability-estimation" title="Permalink to this headline">¶</a></h2>
+<p>To predict probabilities you must build a classifier with
+<code class="docutils literal notranslate"><span class="pre">$probabilityEstimates</span></code> set to true. Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>use Phpml\Classification\SVC;
+use Phpml\SupportVectorMachine\Kernel;
+
+$samples = [[1, 3], [1, 4], [2, 4], [3, 1], [4, 1], [4, 2]];
+$labels = [&#39;a&#39;, &#39;a&#39;, &#39;a&#39;, &#39;b&#39;, &#39;b&#39;, &#39;b&#39;];
+
+$classifier = new SVC(
+    Kernel::LINEAR, // $kernel
+    1.0,            // $cost
+    3,              // $degree
+    null,           // $gamma
+    0.0,            // $coef0
+    0.001,          // $tolerance
+    100,            // $cacheSize
+    true,           // $shrinking
+    true            // $probabilityEstimates, set to true
+);
+
+$classifier-&gt;train($samples, $labels);
+</pre></div>
+</div>
+<p>Then use <code class="docutils literal notranslate"><span class="pre">predictProbability</span></code> method instead of <code class="docutils literal notranslate"><span class="pre">predict</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$classifier-&gt;predictProbability([3, 2]);
+// return [&#39;a&#39; =&gt; 0.349833, &#39;b&#39; =&gt; 0.650167]
+
+$classifier-&gt;predictProbability([[3, 2], [1, 5]]);
+// return [
+//   [&#39;a&#39; =&gt; 0.349833, &#39;b&#39; =&gt; 0.650167],
+//   [&#39;a&#39; =&gt; 0.922664, &#39;b&#39; =&gt; 0.0773364],
+// ]
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">php-ml-vi</a></h1>
+
+
+
+
+
+
+
+
+<h3>Điều hướng</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Thực hiện" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, truongphi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/machine-learning/classification/svc.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

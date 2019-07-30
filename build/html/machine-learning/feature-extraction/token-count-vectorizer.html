@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <title>Token Count Vectorizer &#8212; Tài liệu php-ml-vi 1.0</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="token-count-vectorizer">
+<h1>Token Count Vectorizer<a class="headerlink" href="#token-count-vectorizer" title="Permalink to this headline">¶</a></h1>
+<p>Transform a collection of text samples to a vector of token counts.</p>
+<div class="section" id="constructor-parameters">
+<h2>Constructor Parameters<a class="headerlink" href="#constructor-parameters" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>$tokenizer (Tokenizer) - tokenizer object (see below)</p></li>
+<li><p>$minDF (float) - ignore tokens that have a samples frequency strictly
+lower than the given threshold. This value is also called cut-off in
+the literature. (default 0)</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>use Phpml\FeatureExtraction\TokenCountVectorizer;
+use Phpml\Tokenization\WhitespaceTokenizer;
+
+$vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer());
+</pre></div>
+</div>
+</div>
+<div class="section" id="transformation">
+<h2>Transformation<a class="headerlink" href="#transformation" title="Permalink to this headline">¶</a></h2>
+<p>To transform a collection of text samples use <code class="docutils literal notranslate"><span class="pre">transform</span></code> method.
+Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$samples = [
+    &#39;Lorem ipsum dolor sit amet dolor&#39;,
+    &#39;Mauris placerat ipsum dolor&#39;,
+    &#39;Mauris diam eros fringilla diam&#39;,
+];
+
+$vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer());
+
+// Build the dictionary.
+$vectorizer-&gt;fit($samples);
+
+// Transform the provided text samples into a vectorized list.
+$vectorizer-&gt;transform($samples);
+// return $samples = [
+//    [0 =&gt; 1, 1 =&gt; 1, 2 =&gt; 2, 3 =&gt; 1, 4 =&gt; 1],
+//    [5 =&gt; 1, 6 =&gt; 1, 1 =&gt; 1, 2 =&gt; 1],
+//    [5 =&gt; 1, 7 =&gt; 2, 8 =&gt; 1, 9 =&gt; 1],
+//];
+</pre></div>
+</div>
+</div>
+<div class="section" id="vocabulary">
+<h2>Vocabulary<a class="headerlink" href="#vocabulary" title="Permalink to this headline">¶</a></h2>
+<p>You can extract vocabulary using <code class="docutils literal notranslate"><span class="pre">getVocabulary()</span></code> method. Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$vectorizer-&gt;getVocabulary();
+// return $vocabulary = [&#39;Lorem&#39;, &#39;ipsum&#39;, &#39;dolor&#39;, &#39;sit&#39;, &#39;amet&#39;, &#39;Mauris&#39;, &#39;placerat&#39;, &#39;diam&#39;, &#39;eros&#39;, &#39;fringilla&#39;];
+</pre></div>
+</div>
+</div>
+<div class="section" id="tokenizers">
+<h2>Tokenizers<a class="headerlink" href="#tokenizers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>WhitespaceTokenizer - select tokens by whitespace.</p></li>
+<li><p>WordTokenizer - select tokens of 2 or more alphanumeric characters
+(punctuation is completely ignored and always treated as a token
+separator).</p></li>
+<li><p>NGramTokenizer - continuous sequence of characters of the specified
+length. They are useful for querying languages that don’t use spaces
+or that have long compound words, like German.</p></li>
+</ul>
+<p><strong>NGramTokenizer</strong></p>
+<p>The NGramTokenizer tokenizer accepts the following parameters:</p>
+<p><code class="docutils literal notranslate"><span class="pre">$minGram</span></code> - minimum length of characters in a gram. Defaults to 1.
+<code class="docutils literal notranslate"><span class="pre">$maxGram</span></code> - maximum length of characters in a gram. Defaults to 2.</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">use Phpml\Tokenization\NGramTokenizer;</span>
+
+<span class="x">$tokenizer = new NGramTokenizer(1, 2);</span>
+
+<span class="x">$tokenizer-&gt;tokenize(&#39;Quick Fox&#39;);</span>
+
+<span class="x">// returns [&#39;Q&#39;, &#39;u&#39;, &#39;i&#39;, &#39;c&#39;, &#39;k&#39;, &#39;Qu&#39;, &#39;ui&#39;, &#39;ic&#39;, &#39;ck&#39;, &#39;F&#39;, &#39;o&#39;, &#39;x&#39;, &#39;Fo&#39;, &#39;ox&#39;]</span>
+</pre></div>
+</div>
+<p><strong>NGramWordTokenizer</strong></p>
+<p>The NGramWordTokenizer tokenizer accepts the following parameters:</p>
+<p><code class="docutils literal notranslate"><span class="pre">$minGram</span></code> - minimum length of characters in a gram. Defaults to 1.
+<code class="docutils literal notranslate"><span class="pre">$maxGram</span></code> - maximum length of characters in a gram. Defaults to 2.</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">use Phpml\Tokenization\NGramWordTokenizer;</span>
+
+<span class="x">$tokenizer = new NGramWordTokenizer(1, 2);</span>
+
+<span class="x">$tokenizer-&gt;tokenize(&#39;very quick fox&#39;);</span>
+
+<span class="x">// returns [&#39;very&#39;, &#39;quick&#39;, &#39;fox&#39;, &#39;very quick&#39;, &#39;quick fox&#39;]</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">php-ml-vi</a></h1>
+
+
+
+
+
+
+
+
+<h3>Điều hướng</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Thực hiện" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, truongphi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/machine-learning/feature-extraction/token-count-vectorizer.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

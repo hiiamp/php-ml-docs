@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <title>Set &#8212; Tài liệu php-ml-vi 1.0</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="set">
+<h1>Set<a class="headerlink" href="#set" title="Permalink to this headline">¶</a></h1>
+<p>Class that wraps PHP arrays containing primitive types to mathematical
+sets.</p>
+<div class="section" id="creation">
+<h2>Creation<a class="headerlink" href="#creation" title="Permalink to this headline">¶</a></h2>
+<p>To create Set use flat arrays containing primitives only:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>use \Phpml\Math\Set;
+
+$set = new Set([1, 2, 2, 3, 1.1, -1, -10]);
+$set-&gt;toArray();
+// return [-10, -1, 1, 1.1, 2, 3]
+
+$set = new Set([&#39;B&#39;, &#39;&#39;, &#39;A&#39;]);
+$set-&gt;toArray();
+// return [&#39;&#39;, &#39;A&#39;, &#39;B&#39;]
+</pre></div>
+</div>
+<p>Injected array is sorted by SORT_ASC, duplicates are removed and index
+is rewritten.</p>
+</div>
+<div class="section" id="union">
+<h2>Union<a class="headerlink" href="#union" title="Permalink to this headline">¶</a></h2>
+<p>Create the union of two Sets:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>use \Phpml\Math\Set;
+
+$union = Set::union(new Set([1, 3]), new Set([1, 2]));
+$union-&gt;toArray();
+//return [1, 2, 3]
+</pre></div>
+</div>
+</div>
+<div class="section" id="intersection">
+<h2>Intersection<a class="headerlink" href="#intersection" title="Permalink to this headline">¶</a></h2>
+<p>Create the intersection of two Sets:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>use \Phpml\Math\Set;
+
+$intersection = Set::intersection(new Set([&#39;A&#39;, &#39;C&#39;]), new Set([&#39;B&#39;, &#39;C&#39;]));
+$intersection-&gt;toArray();
+//return [&#39;C&#39;]
+</pre></div>
+</div>
+</div>
+<div class="section" id="complement">
+<h2>Complement<a class="headerlink" href="#complement" title="Permalink to this headline">¶</a></h2>
+<p>Create the set-theoretic difference of two Sets:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>use \Phpml\Math\Set;
+
+$difference = Set::difference(new Set([&#39;A&#39;, &#39;B&#39;, &#39;C&#39;]), new Set([&#39;A&#39;]));
+$union-&gt;toArray();
+//return [&#39;B&#39;, &#39;C&#39;]
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-elements">
+<h2>Adding elements<a class="headerlink" href="#adding-elements" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>use \Phpml\Math\Set;
+
+$set = new Set([1, 2]);
+$set-&gt;addAll([3]);
+$set-&gt;add(4);
+$set-&gt;toArray();
+//return [1, 2, 3, 4]
+</pre></div>
+</div>
+</div>
+<div class="section" id="removing-elements">
+<h2>Removing elements<a class="headerlink" href="#removing-elements" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>use \Phpml\Math\Set;
+
+$set = new Set([1, 2]);
+$set-&gt;removeAll([2]);
+$set-&gt;remove(1);
+$set-&gt;toArray();
+//return []
+</pre></div>
+</div>
+</div>
+<div class="section" id="check-membership">
+<h2>Check membership<a class="headerlink" href="#check-membership" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>use \Phpml\Math\Set;
+
+$set = new Set([1, 2]);
+$set-&gt;containsAll([2, 3]);
+//return false
+$set-&gt;contains(1);
+//return true
+</pre></div>
+</div>
+</div>
+<div class="section" id="cardinality">
+<h2>Cardinality<a class="headerlink" href="#cardinality" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>use \Phpml\Math\Set;
+
+$set = new Set([1, 2]);
+$set-&gt;cardinality();
+//return 2
+</pre></div>
+</div>
+</div>
+<div class="section" id="is-empty">
+<h2>Is empty<a class="headerlink" href="#is-empty" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>use \Phpml\Math\Set;
+
+$set = new Set();
+$set-&gt;isEmpty();
+//return true
+</pre></div>
+</div>
+</div>
+<div class="section" id="working-with-loops">
+<h2>Working with loops<a class="headerlink" href="#working-with-loops" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>use \Phpml\Math\Set;
+
+$set = new Set([&#39;A&#39;, &#39;B&#39;, &#39;C&#39;]);
+
+foreach($set as $element) {
+    echo &quot;$element, &quot;;
+}
+
+// echoes A, B, C
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">php-ml-vi</a></h1>
+
+
+
+
+
+
+
+
+<h3>Điều hướng</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Thực hiện" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, truongphi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/math/set.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

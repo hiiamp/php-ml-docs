@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <title>SelectKBest &#8212; Tài liệu php-ml-vi 1.0</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="selectkbest">
+<h1>SelectKBest<a class="headerlink" href="#selectkbest" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">SelectKBest</span></code> - select features according to the k highest scores.</p>
+<div class="section" id="constructor-parameters">
+<h2>Constructor Parameters<a class="headerlink" href="#constructor-parameters" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>$k (int) - number of top features to select, rest will be removed
+(default: 10)</p></li>
+<li><p>$scoringFunction (ScoringFunction) - function that take samples and
+targets and return array with scores (default: ANOVAFValue)</p></li>
+</ul>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">use Phpml\FeatureSelection\SelectKBest;</span>
+
+<span class="x">$transformer = new SelectKBest(2);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-of-use">
+<h2>Example of use<a class="headerlink" href="#example-of-use" title="Permalink to this headline">¶</a></h2>
+<p>As an example we can perform feature selection on Iris dataset to
+retrieve only the two best features as follows:</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">use Phpml\FeatureSelection\SelectKBest;</span>
+<span class="x">use Phpml\Dataset\Demo\IrisDataset;</span>
+
+<span class="x">$dataset = new IrisDataset();</span>
+<span class="x">$selector = new SelectKBest(2);</span>
+<span class="x">$selector-&gt;fit($samples = $dataset-&gt;getSamples(), $dataset-&gt;getTargets());</span>
+<span class="x">$selector-&gt;transform($samples);</span>
+
+<span class="x">/*</span>
+<span class="x">$samples[0] = [1.4, 0.2];</span>
+<span class="x">*/</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scores">
+<h2>Scores<a class="headerlink" href="#scores" title="Permalink to this headline">¶</a></h2>
+<p>You can get a array with the calculated score for each feature. A higher
+value means that a given feature is better suited for learning. Of
+course, the rating depends on the scoring function used.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>use Phpml\FeatureSelection\SelectKBest;
+use Phpml\Dataset\Demo\IrisDataset;
+
+$dataset = new IrisDataset();
+$selector = new SelectKBest(2);
+$selector-&gt;fit($samples = $dataset-&gt;getSamples(), $dataset-&gt;getTargets());
+$selector-&gt;scores();
+
+/*
+..array(4) {
+  [0]=&gt;
+  float(119.26450218451)
+  [1]=&gt;
+  float(47.364461402997)
+  [2]=&gt;
+  float(1179.0343277002)
+  [3]=&gt;
+  float(959.32440572573)
+}
+*/
+</pre></div>
+</div>
+</div>
+<div class="section" id="scoring-function">
+<h2>Scoring function<a class="headerlink" href="#scoring-function" title="Permalink to this headline">¶</a></h2>
+<p>Available scoring functions:</p>
+<p>For classification: - <strong>ANOVAFValue</strong> The one-way ANOVA tests the null
+hypothesis that 2 or more groups have the same population mean. The test
+is applied to samples from two or more groups, possibly with differing
+sizes.</p>
+<div class="line-block">
+<div class="line">For regression: - <strong>UnivariateLinearRegression</strong></div>
+<div class="line-block">
+<div class="line">Quick linear model for testing the effect of a single regressor,</div>
+</div>
+</div>
+<p>sequentially for many regressors. This is done in 2 steps: - 1. The
+cross correlation between each regressor and the target is computed,
+that is, ((X[:, i] - mean(X[:, i])) * (y - mean_y)) / (std(X[:, i])
+*std(y)). - 2. It is converted to an F score</p>
+</div>
+<div class="section" id="pipeline">
+<h2>Pipeline<a class="headerlink" href="#pipeline" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">SelectKBest</span></code> implements <code class="docutils literal notranslate"><span class="pre">Transformer</span></code> interface so it can be used
+as part of pipeline:</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">use Phpml\FeatureSelection\SelectKBest;</span>
+<span class="x">use Phpml\Classification\SVC;</span>
+<span class="x">use Phpml\FeatureExtraction\TfIdfTransformer;</span>
+<span class="x">use Phpml\Pipeline;</span>
+
+<span class="x">$transformers = [</span>
+<span class="x">    new TfIdfTransformer(),</span>
+<span class="x">    new SelectKBest(3)</span>
+<span class="x">];</span>
+<span class="x">$estimator = new SVC();</span>
+
+<span class="x">$pipeline = new Pipeline($transformers, $estimator);</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">php-ml-vi</a></h1>
+
+
+
+
+
+
+
+
+<h3>Điều hướng</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Thực hiện" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, truongphi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/machine-learning/feature-selection/selectkbest.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

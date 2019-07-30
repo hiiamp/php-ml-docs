@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <title>CsvDataset &#8212; Tài liệu php-ml-vi 1.0</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="csvdataset">
+<h1>CsvDataset<a class="headerlink" href="#csvdataset" title="Permalink to this headline">¶</a></h1>
+<p>Helper class that loads data from CSV file. It extends the
+<code class="docutils literal notranslate"><span class="pre">ArrayDataset</span></code>.</p>
+<div class="section" id="constructors-parameters">
+<h2>Constructors Parameters<a class="headerlink" href="#constructors-parameters" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>$filepath - (string) path to <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file</p></li>
+<li><p>$features - (int) number of columns that are features (starts from
+first column), last column must be a label</p></li>
+<li><p>$headingRow - (bool) define is file have a heading row (if <code class="docutils literal notranslate"><span class="pre">true</span></code>
+then first row will be ignored)</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$dataset = new CsvDataset(&#39;dataset.csv&#39;, 2, true);
+</pre></div>
+</div>
+<p>See <a class="reference external" href="array-dataset.md">ArrayDataset</a> for more information.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">php-ml-vi</a></h1>
+
+
+
+
+
+
+
+
+<h3>Điều hướng</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Thực hiện" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, truongphi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/machine-learning/datasets/csv-dataset.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <title>Glass Dataset &#8212; Tài liệu php-ml-vi 1.0</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="glass-dataset">
+<h1>Glass Dataset<a class="headerlink" href="#glass-dataset" title="Permalink to this headline">¶</a></h1>
+<p>From USA Forensic Science Service; 6 types of glass; defined in terms of
+their oxide content (i.e. Na, Fe, K, etc)</p>
+<div class="section" id="specification">
+<h2>Specification<a class="headerlink" href="#specification" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">Classes | 6 |</div>
+<div class="line">Samples total | 214 |</div>
+<div class="line">Features per sample | 9 |</div>
+</div>
+<p>Samples per class: * 70 float processed building windows * 17 float
+processed vehicle windows * 76 non-float processed building windows *
+13 containers * 9 tableware * 29 headlamps</p>
+</div>
+<div class="section" id="load">
+<h2>Load<a class="headerlink" href="#load" title="Permalink to this headline">¶</a></h2>
+<p>To load Glass dataset simple use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>use Phpml\Dataset\Demo\GlassDataset;
+
+$dataset = new GlassDataset();
+</pre></div>
+</div>
+</div>
+<div class="section" id="several-samples-example">
+<h2>Several samples example<a class="headerlink" href="#several-samples-example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">RI</span><span class="p">:</span> <span class="n">refractive</span> <span class="n">index</span><span class="p">,</span><span class="n">Na</span><span class="p">:</span> <span class="n">Sodium</span><span class="p">,</span><span class="n">Mg</span><span class="p">:</span> <span class="n">Magnesium</span><span class="p">,</span><span class="n">Al</span><span class="p">:</span> <span class="n">Aluminum</span><span class="p">,</span><span class="n">Si</span><span class="p">:</span> <span class="n">Silicon</span><span class="p">,</span><span class="n">K</span><span class="p">:</span> <span class="n">Potassium</span><span class="p">,</span><span class="n">Ca</span><span class="p">:</span> <span class="n">Calcium</span><span class="p">,</span><span class="n">Ba</span><span class="p">:</span> <span class="n">Barium</span><span class="p">,</span><span class="n">Fe</span><span class="p">:</span> <span class="n">Iron</span><span class="p">,</span><span class="nb">type</span> <span class="n">of</span> <span class="n">glass</span>
+<span class="mf">1.52101</span><span class="p">,</span><span class="mf">13.64</span><span class="p">,</span><span class="mf">4.49</span><span class="p">,</span><span class="mf">1.10</span><span class="p">,</span><span class="mf">71.78</span><span class="p">,</span><span class="mf">0.06</span><span class="p">,</span><span class="mf">8.75</span><span class="p">,</span><span class="mf">0.00</span><span class="p">,</span><span class="mf">0.00</span><span class="p">,</span><span class="n">building_windows_float_processed</span>
+<span class="mf">1.51761</span><span class="p">,</span><span class="mf">13.89</span><span class="p">,</span><span class="mf">3.60</span><span class="p">,</span><span class="mf">1.36</span><span class="p">,</span><span class="mf">72.73</span><span class="p">,</span><span class="mf">0.48</span><span class="p">,</span><span class="mf">7.83</span><span class="p">,</span><span class="mf">0.00</span><span class="p">,</span><span class="mf">0.00</span><span class="p">,</span><span class="n">building_windows_float_processed</span>
+<span class="mf">1.51618</span><span class="p">,</span><span class="mf">13.53</span><span class="p">,</span><span class="mf">3.55</span><span class="p">,</span><span class="mf">1.54</span><span class="p">,</span><span class="mf">72.99</span><span class="p">,</span><span class="mf">0.39</span><span class="p">,</span><span class="mf">7.78</span><span class="p">,</span><span class="mf">0.00</span><span class="p">,</span><span class="mf">0.00</span><span class="p">,</span><span class="n">building_windows_float_processed</span>
+<span class="mf">1.51766</span><span class="p">,</span><span class="mf">13.21</span><span class="p">,</span><span class="mf">3.69</span><span class="p">,</span><span class="mf">1.29</span><span class="p">,</span><span class="mf">72.61</span><span class="p">,</span><span class="mf">0.57</span><span class="p">,</span><span class="mf">8.22</span><span class="p">,</span><span class="mf">0.00</span><span class="p">,</span><span class="mf">0.00</span><span class="p">,</span><span class="n">building_windows_float_processed</span>
+<span class="mf">1.51742</span><span class="p">,</span><span class="mf">13.27</span><span class="p">,</span><span class="mf">3.62</span><span class="p">,</span><span class="mf">1.24</span><span class="p">,</span><span class="mf">73.08</span><span class="p">,</span><span class="mf">0.55</span><span class="p">,</span><span class="mf">8.07</span><span class="p">,</span><span class="mf">0.00</span><span class="p">,</span><span class="mf">0.00</span><span class="p">,</span><span class="n">building_windows_float_processed</span>
+<span class="mf">1.51596</span><span class="p">,</span><span class="mf">12.79</span><span class="p">,</span><span class="mf">3.61</span><span class="p">,</span><span class="mf">1.62</span><span class="p">,</span><span class="mf">72.97</span><span class="p">,</span><span class="mf">0.64</span><span class="p">,</span><span class="mf">8.07</span><span class="p">,</span><span class="mf">0.00</span><span class="p">,</span><span class="mf">0.26</span><span class="p">,</span><span class="n">building_windows_float_processed</span>
+<span class="mf">1.51743</span><span class="p">,</span><span class="mf">13.30</span><span class="p">,</span><span class="mf">3.60</span><span class="p">,</span><span class="mf">1.14</span><span class="p">,</span><span class="mf">73.09</span><span class="p">,</span><span class="mf">0.58</span><span class="p">,</span><span class="mf">8.17</span><span class="p">,</span><span class="mf">0.00</span><span class="p">,</span><span class="mf">0.00</span><span class="p">,</span><span class="n">building_windows_float_processed</span>
+<span class="mf">1.51756</span><span class="p">,</span><span class="mf">13.15</span><span class="p">,</span><span class="mf">3.61</span><span class="p">,</span><span class="mf">1.05</span><span class="p">,</span><span class="mf">73.24</span><span class="p">,</span><span class="mf">0.57</span><span class="p">,</span><span class="mf">8.24</span><span class="p">,</span><span class="mf">0.00</span><span class="p">,</span><span class="mf">0.00</span><span class="p">,</span><span class="n">building_windows_float_processed</span>
+<span class="mf">1.51918</span><span class="p">,</span><span class="mf">14.04</span><span class="p">,</span><span class="mf">3.58</span><span class="p">,</span><span class="mf">1.37</span><span class="p">,</span><span class="mf">72.08</span><span class="p">,</span><span class="mf">0.56</span><span class="p">,</span><span class="mf">8.30</span><span class="p">,</span><span class="mf">0.00</span><span class="p">,</span><span class="mf">0.00</span><span class="p">,</span><span class="n">building_windows_float_processed</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">php-ml-vi</a></h1>
+
+
+
+
+
+
+
+
+<h3>Điều hướng</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Thực hiện" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, truongphi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../_sources/machine-learning/datasets/demo/glass.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <title>DBSCAN clustering &#8212; Tài liệu php-ml-vi 1.0</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="dbscan-clustering">
+<h1>DBSCAN clustering<a class="headerlink" href="#dbscan-clustering" title="Permalink to this headline">¶</a></h1>
+<p>It is a density-based clustering algorithm: given a set of points in
+some space, it groups together points that are closely packed together
+(points with many nearby neighbors), marking as outliers points that lie
+alone in low-density regions (whose nearest neighbors are too far away).
+DBSCAN is one of the most common clustering algorithms and also most
+cited in scientific literature. <em>(source: wikipedia)</em></p>
+<div class="section" id="constructor-parameters">
+<h2>Constructor Parameters<a class="headerlink" href="#constructor-parameters" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>$epsilon - epsilon, maximum distance between two samples for them to
+be considered as in the same neighborhood</p></li>
+<li><p>$minSamples - number of samples in a neighborhood for a point to be
+considered as a core point (this includes the point itself)</p></li>
+<li><p>$distanceMetric - Distance object, default Euclidean (see <a class="reference external" href="../../math/distance.md">distance
+documentation</a>)</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$dbscan = new DBSCAN($epsilon = 2, $minSamples = 3);
+$dbscan = new DBSCAN($epsilon = 2, $minSamples = 3, new Minkowski($lambda=4));
+</pre></div>
+</div>
+</div>
+<div class="section" id="clustering">
+<h2>Clustering<a class="headerlink" href="#clustering" title="Permalink to this headline">¶</a></h2>
+<p>To divide the samples into clusters simply use <code class="docutils literal notranslate"><span class="pre">cluster</span></code> method. It's
+return the <code class="docutils literal notranslate"><span class="pre">array</span></code> of clusters with samples inside.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$samples = [[1, 1], [8, 7], [1, 2], [7, 8], [2, 1], [8, 9]];
+
+$dbscan = new DBSCAN($epsilon = 2, $minSamples = 3);
+$dbscan-&gt;cluster($samples);
+// return [0=&gt;[[1, 1], ...], 1=&gt;[[8, 7], ...]]
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">php-ml-vi</a></h1>
+
+
+
+
+
+
+
+
+<h3>Điều hướng</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Thực hiện" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, truongphi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/machine-learning/clustering/dbscan.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

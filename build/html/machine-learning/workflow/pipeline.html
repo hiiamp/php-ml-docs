@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <title>Pipeline &#8212; Tài liệu php-ml-vi 1.0</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="pipeline">
+<h1>Pipeline<a class="headerlink" href="#pipeline" title="Permalink to this headline">¶</a></h1>
+<p>In machine learning, it is common to run a sequence of algorithms to
+process and learn from dataset. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>* Split each document’s text into tokens.
+* Convert each document’s words into a numerical feature vector ([Token Count Vectorizer](machine-learning/feature-extraction/token-count-vectorizer/)).
+* Learn a prediction model using the feature vectors and labels.
+</pre></div>
+</div>
+<p>PHP-ML represents such a workflow as a Pipeline, which consists sequence
+of transformers and a estimator.</p>
+<div class="section" id="constructor-parameters">
+<h2>Constructor Parameters<a class="headerlink" href="#constructor-parameters" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>$transformers (array|Transformer[]) - sequence of objects that
+implements Transformer interface</p></li>
+<li><p>$estimator (Estimator) - estimator that can train and predict</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>use Phpml\Classification\SVC;
+use Phpml\FeatureExtraction\TfIdfTransformer;
+use Phpml\Pipeline;
+
+$transformers = [
+    new TfIdfTransformer(),
+];
+$estimator = new SVC();
+
+$pipeline = new Pipeline($transformers, $estimator);
+</pre></div>
+</div>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>First our pipeline replace missing value, then normalize samples and
+finally train SVC estimator. Thus prepared pipeline repeats each
+transformation step for predicted sample.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>use Phpml\Classification\SVC;
+use Phpml\Pipeline;
+use Phpml\Preprocessing\Imputer;
+use Phpml\Preprocessing\Normalizer;
+use Phpml\Preprocessing\Imputer\Strategy\MostFrequentStrategy;
+
+$transformers = [
+    new Imputer(null, new MostFrequentStrategy()),
+    new Normalizer(),
+];
+$estimator = new SVC();
+
+$samples = [
+    [1, -1, 2],
+    [2, 0, null],
+    [null, 1, -1],
+];
+
+$targets = [
+    4,
+    1,
+    4,
+];
+
+$pipeline = new Pipeline($transformers, $estimator);
+$pipeline-&gt;train($samples, $targets);
+
+$predicted = $pipeline-&gt;predict([[0, 0, 0]]);
+
+// $predicted == 4
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">php-ml-vi</a></h1>
+
+
+
+
+
+
+
+
+<h3>Điều hướng</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Thực hiện" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, truongphi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/machine-learning/workflow/pipeline.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

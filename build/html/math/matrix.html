@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <title>Matrix &#8212; Tài liệu php-ml-vi 1.0</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="matrix">
+<h1>Matrix<a class="headerlink" href="#matrix" title="Permalink to this headline">¶</a></h1>
+<p>Class that wraps PHP arrays to mathematical matrix.</p>
+<div class="section" id="creation">
+<h2>Creation<a class="headerlink" href="#creation" title="Permalink to this headline">¶</a></h2>
+<p>To create Matrix use simple arrays:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$matrix = new Matrix([
+    [3, 3, 3],
+    [4, 2, 1],
+    [5, 6, 7],
+]);
+</pre></div>
+</div>
+<p>You can also create Matrix (one dimension) from flat array:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$flatArray = [1, 2, 3, 4];
+$matrix = Matrix::fromFlatArray($flatArray);
+</pre></div>
+</div>
+</div>
+<div class="section" id="matrix-data">
+<h2>Matrix data<a class="headerlink" href="#matrix-data" title="Permalink to this headline">¶</a></h2>
+<p>Methods for reading data from Matrix:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$matrix-&gt;toArray(); // cast matrix to PHP array
+$matrix-&gt;getRows(); // rows count
+$matrix-&gt;getColumns(); // columns count
+$matrix-&gt;getColumnValues($column=4); // get values from given column
+</pre></div>
+</div>
+</div>
+<div class="section" id="determinant">
+<h2>Determinant<a class="headerlink" href="#determinant" title="Permalink to this headline">¶</a></h2>
+<p>Read more about <a class="reference external" href="https://en.wikipedia.org/wiki/Determinant">matrix
+determinant</a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$matrix = new Matrix([
+    [3, 3, 3],
+    [4, 2, 1],
+    [5, 6, 7],
+]);
+
+$matrix-&gt;getDeterminant();
+// return -3
+</pre></div>
+</div>
+</div>
+<div class="section" id="transpose">
+<h2>Transpose<a class="headerlink" href="#transpose" title="Permalink to this headline">¶</a></h2>
+<p>Read more about <a class="reference external" href="https://en.wikipedia.org/wiki/Transpose">matrix
+transpose</a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$matrix-&gt;transpose();
+// return new Matrix
+</pre></div>
+</div>
+</div>
+<div class="section" id="multiply">
+<h2>Multiply<a class="headerlink" href="#multiply" title="Permalink to this headline">¶</a></h2>
+<p>Multiply Matrix by another Matrix.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$matrix1 = new Matrix([
+    [1, 2, 3],
+    [4, 5, 6],
+]);
+
+$matrix2 = new Matrix([
+    [7, 8],
+    [9, 10],
+    [11, 12],
+]);
+
+$matrix1-&gt;multiply($matrix2);
+
+// result $product = [
+//  [58, 64],
+//  [139, 154],
+//];
+</pre></div>
+</div>
+</div>
+<div class="section" id="divide-by-scalar">
+<h2>Divide by scalar<a class="headerlink" href="#divide-by-scalar" title="Permalink to this headline">¶</a></h2>
+<p>You can divide Matrix by scalar value.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$matrix-&gt;divideByScalar(2);
+</pre></div>
+</div>
+</div>
+<div class="section" id="inverse">
+<h2>Inverse<a class="headerlink" href="#inverse" title="Permalink to this headline">¶</a></h2>
+<p>Read more about <a class="reference external" href="https://en.wikipedia.org/wiki/Invertible_matrix">invertible
+matrix</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$matrix = new Matrix([
+    [3, 4, 2],
+    [4, 5, 5],
+    [1, 1, 1],
+]);
+
+$matrix-&gt;inverse();
+
+// result $inverseMatrix = [
+//    [0, -1, 5],
+//    [1 / 2, 1 / 2, -7 / 2],
+//    [-1 / 2, 1 / 2, -1 / 2],
+//];
+</pre></div>
+</div>
+</div>
+<div class="section" id="cross-out">
+<h2>Cross out<a class="headerlink" href="#cross-out" title="Permalink to this headline">¶</a></h2>
+<p>Cross out given row and column from Matrix.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$matrix = new Matrix([
+    [3, 4, 2],
+    [4, 5, 5],
+    [1, 1, 1],
+]);
+
+$matrix-&gt;crossOut(1, 1)
+
+// result $crossOuted = [
+//    [3, 2],
+//    [1, 1],
+//];
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">php-ml-vi</a></h1>
+
+
+
+
+
+
+
+
+<h3>Điều hướng</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Thực hiện" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, truongphi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/math/matrix.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

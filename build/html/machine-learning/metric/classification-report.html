@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <title>Classification Report &#8212; Tài liệu php-ml-vi 1.0</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="classification-report">
+<h1>Classification Report<a class="headerlink" href="#classification-report" title="Permalink to this headline">¶</a></h1>
+<p>Class for calculate main classifier metrics: precision, recall, F1 score
+and support.</p>
+<div class="section" id="report">
+<h2>Report<a class="headerlink" href="#report" title="Permalink to this headline">¶</a></h2>
+<p>To generate report you must provide the following parameters:</p>
+<ul class="simple">
+<li><p>$actualLabels - (array) true sample labels</p></li>
+<li><p>$predictedLabels - (array) predicted labels (e.x. from test group)</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>use Phpml\Metric\ClassificationReport;
+
+$actualLabels = [&#39;cat&#39;, &#39;ant&#39;, &#39;bird&#39;, &#39;bird&#39;, &#39;bird&#39;];
+$predictedLabels = [&#39;cat&#39;, &#39;cat&#39;, &#39;bird&#39;, &#39;bird&#39;, &#39;ant&#39;];
+
+$report = new ClassificationReport($actualLabels, $predictedLabels);
+</pre></div>
+</div>
+<p>Optionally you can provide the following parameter:</p>
+<ul class="simple">
+<li><p>$average - (int) averaging method for multi-class classification</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ClassificationReport::MICRO_AVERAGE</span></code> = 1</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ClassificationReport::MACRO_AVERAGE</span></code> = 2 (default)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ClassificationReport::WEIGHTED_AVERAGE</span></code> = 3</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="metrics">
+<h2>Metrics<a class="headerlink" href="#metrics" title="Permalink to this headline">¶</a></h2>
+<p>After creating the report you can draw its individual metrics:</p>
+<ul class="simple">
+<li><p>precision (<code class="docutils literal notranslate"><span class="pre">getPrecision()</span></code>) - fraction of retrieved instances that
+are relevant</p></li>
+<li><p>recall (<code class="docutils literal notranslate"><span class="pre">getRecall()</span></code>) - fraction of relevant instances that are
+retrieved</p></li>
+<li><p>F1 score (<code class="docutils literal notranslate"><span class="pre">getF1score()</span></code>) - measure of a test's accuracy</p></li>
+<li><p>support (<code class="docutils literal notranslate"><span class="pre">getSupport()</span></code>) - count of testes samples</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$precision = $report-&gt;getPrecision();
+// $precision = [&#39;cat&#39; =&gt; 0.5, &#39;ant&#39; =&gt; 0.0, &#39;bird&#39; =&gt; 1.0];
+</pre></div>
+</div>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>use Phpml\Metric\ClassificationReport;
+
+$actualLabels = [&#39;cat&#39;, &#39;ant&#39;, &#39;bird&#39;, &#39;bird&#39;, &#39;bird&#39;];
+$predictedLabels = [&#39;cat&#39;, &#39;cat&#39;, &#39;bird&#39;, &#39;bird&#39;, &#39;ant&#39;];
+
+$report = new ClassificationReport($actualLabels, $predictedLabels);
+
+$report-&gt;getPrecision();
+// [&#39;cat&#39; =&gt; 0.5, &#39;ant&#39; =&gt; 0.0, &#39;bird&#39; =&gt; 1.0]
+
+$report-&gt;getRecall();
+// [&#39;cat&#39; =&gt; 1.0, &#39;ant&#39; =&gt; 0.0, &#39;bird&#39; =&gt; 0.67]
+
+$report-&gt;getF1score();
+// [&#39;cat&#39; =&gt; 0.67, &#39;ant&#39; =&gt; 0.0, &#39;bird&#39; =&gt; 0.80]
+
+$report-&gt;getSupport();
+// [&#39;cat&#39; =&gt; 1, &#39;ant&#39; =&gt; 1, &#39;bird&#39; =&gt; 3]
+
+$report-&gt;getAverage();
+// [&#39;precision&#39; =&gt; 0.5, &#39;recall&#39; =&gt; 0.56, &#39;f1score&#39; =&gt; 0.49]
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">php-ml-vi</a></h1>
+
+
+
+
+
+
+
+
+<h3>Điều hướng</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Thực hiện" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, truongphi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/machine-learning/metric/classification-report.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,195 @@
+PHP-ML - Machine Learning library for PHP
+=========================================
+
+|Minimum PHP Version| |Latest Stable Version| |Build Status|
+|Documentation Status| |Coverage Status|
+|Scrutinizer Code Quality|
+
+.. raw:: html
+
+   <p align="center">
+       
+
+.. raw:: html
+
+   </p>
+
+Fresh approach to Machine Learning in PHP. Algorithms, Cross Validation,
+Neural Network, Preprocessing, Feature Extraction and much more in one
+library.
+
+PHP-ML requires PHP >= 7.2.
+
+Simple example of classification:
+
+.. code:: php
+
+    require_once __DIR__ . '/vendor/autoload.php';
+
+    use Phpml\Classification\KNearestNeighbors;
+
+    $samples = [[1, 3], [1, 4], [2, 4], [3, 1], [4, 1], [4, 2]];
+    $labels = ['a', 'a', 'a', 'b', 'b', 'b'];
+
+    $classifier = new KNearestNeighbors();
+    $classifier->train($samples, $labels);
+
+    $classifier->predict([3, 2]);
+    // return 'b'
+
+Awards
+------
+
+Documentation
+-------------
+
+To find out how to use PHP-ML follow
+`Documentation <http://php-ml.readthedocs.org/>`__.
+
+Installation
+------------
+
+Currently this library is in the process of developing, but You can
+install it with Composer:
+
+::
+
+    composer require php-ai/php-ml
+
+Examples
+--------
+
+Example scripts are available in a separate repository
+`php-ai/php-ml-examples <https://github.com/php-ai/php-ml-examples>`__.
+
+Features
+--------
+
+-  Association rule Lerning
+
+   -  `Apriori <machine-learning/association/apriori.html>`__
+
+-  Classification
+
+   -  `SVC <machine-learning/classification/svc.html>`__
+   -  `k-Nearest
+      Neighbors <machine-learning/classification/k-nearest-neighbors.html>`__
+   -  `Naive Bayes <machine-learning/classification/naive-bayes.html>`__
+
+-  Regression
+
+   -  `Least Squares <machine-learning/regression/least-squares.html>`__
+   -  `SVR <machine-learning/regression/svr.html>`__
+
+-  Clustering
+
+   -  `k-Means <machine-learning/clustering/k-means.html>`__
+   -  `DBSCAN <machine-learning/clustering/dbscan.html>`__
+
+-  Metric
+
+   -  `Accuracy <machine-learning/metric/accuracy.html>`__
+   -  `Confusion Matrix <machine-learning/metric/confusion-matrix.html>`__
+   -  `Classification
+      Report <machine-learning/metric/classification-report.html>`__
+
+-  Workflow
+
+   -  `Pipeline <machine-learning/workflow/pipeline.html>`__
+
+-  Neural Network
+
+   -  `Multilayer Perceptron
+      Classifier <machine-learning/neural-network/multilayer-perceptron-classifier.html>`__
+
+-  Cross Validation
+
+   -  `Random
+      Split <machine-learning/cross-validation/random-split.html>`__
+   -  `Stratified Random
+      Split <machine-learning/cross-validation/stratified-random-split.html>`__
+
+-  Feature Selection
+
+   -  `Variance
+      Threshold <machine-learning/feature-selection/variance-threshold.html>`__
+   -  `SelectKBest <machine-learning/feature-selection/selectkbest.html>`__
+
+-  Preprocessing
+
+   -  `Normalization <machine-learning/preprocessing/normalization.html>`__
+   -  `Imputation missing
+      values <machine-learning/preprocessing/imputation-missing-values.html>`__
+   -  LabelEncoder
+
+-  Feature Extraction
+
+   -  `Token Count
+      Vectorizer <machine-learning/feature-extraction/token-count-vectorizer.html>`__
+   -  `Tf-idf
+      Transformer <machine-learning/feature-extraction/tf-idf-transformer.html>`__
+
+-  Datasets
+
+   -  `Array <machine-learning/datasets/array-dataset.html>`__
+   -  `CSV <machine-learning/datasets/csv-dataset.html>`__
+   -  `Files <machine-learning/datasets/files-dataset.html>`__
+   -  `SVM <machine-learning/datasets/svm-dataset.html>`__
+   -  `MNIST <machine-learning/datasets/mnist-dataset.html>`__
+   -  Ready to use:
+
+      -  `Iris <machine-learning/datasets/demo/iris.html>`__
+      -  `Wine <machine-learning/datasets/demo/wine.html>`__
+      -  `Glass <machine-learning/datasets/demo/glass.html>`__
+
+-  Models management
+
+   -  `Persistency <machine-learning/model-manager/persistency.html>`__
+
+-  Math
+
+   -  `Distance <math/distance.html>`__
+   -  `Matrix <math/matrix.html>`__
+   -  `Set <math/set.html>`__
+   -  `Statistic <math/statistic.html>`__
+
+Contribute
+----------
+
+-  Guide:
+   `CONTRIBUTING.htmld <https://github.com/php-ai/php-ml/blob/master/CONTRIBUTING.md>`__
+-  Issue Tracker:
+   `github.com/php-ai/php-ml/issues <https://github.com/php-ai/php-ml/issues>`__
+-  Source Code:
+   `github.com/php-ai/php-ml <https://github.com/php-ai/php-ml>`__
+
+You can find more about contributing in
+`CONTRIBUTING.md <../CONTRIBUTING.md>`__.
+
+License
+-------
+
+PHP-ML is released under the MIT Licence. See the bundled LICENSE file
+for details.
+
+Author
+------
+
+Arkadiusz Kondas (@ArkadiuszKondas)
+
+.. |Minimum PHP Version| image:: https://img.shields.io/badge/php-%3E%3D%207.2-8892BF.svg
+   :target: https://php.net/
+.. |Latest Stable Version| image:: https://img.shields.io/packagist/v/php-ai/php-ml.svg
+   :target: https://packagist.org/packages/php-ai/php-ml
+.. |Build Status| image:: https://travis-ci.org/php-ai/php-ml.svg?branch=master
+   :target: https://travis-ci.org/php-ai/php-ml
+.. |Documentation Status| image:: https://readthedocs.org/projects/php-ml/badge/?version=master
+   :target: http://php-ml.readthedocs.org/
+.. |Total Downloads| image:: https://poser.pugx.org/php-ai/php-ml/downloads.svg
+   :target: https://packagist.org/packages/php-ai/php-ml
+.. |License| image:: https://poser.pugx.org/php-ai/php-ml/license.svg
+   :target: https://packagist.org/packages/php-ai/php-ml
+.. |Coverage Status| image:: https://coveralls.io/repos/github/php-ai/php-ml/badge.svg?branch=master
+   :target: https://coveralls.io/github/php-ai/php-ml?branch=master
+.. |Scrutinizer Code Quality| image:: https://scrutinizer-ci.com/g/php-ai/php-ml/badges/quality-score.png?b=master
+   :target: https://scrutinizer-ci.com/g/php-ai/php-ml/?branch=master
