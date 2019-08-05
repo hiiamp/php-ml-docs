@@ -1,18 +1,18 @@
 # Pipeline
 
-In machine learning, it is common to run a sequence of algorithms to process and learn from dataset. For example:
+Trong học máy, người ta thường chạy một chuỗi các thuật toán để xử lý và học từ tập dữ liệu.
 
-    * Split each document’s text into tokens.
-    * Convert each document’s words into a numerical feature vector ([Token Count Vectorizer](machine-learning/feature-extraction/token-count-vectorizer/)).
-    * Learn a prediction model using the feature vectors and labels.
+    * Tách đừng đoạn văn bản của tài liệu thành các tokens.
+    * Chuyển đổi mỗi từ ngữ của tài liệu thành các vector số học đặc trưng ([Token Count Vectorizer](machine-learning/feature-extraction/token-count-vectorizer/)).
+    * Học để tạo ra mô hình dự đoán (`prediction model`) từ các vector đặc trưng và nhãn (`label`) tương ứng.
     
-PHP-ML represents such a workflow as a Pipeline, which consists sequence of transformers and a estimator.
+PHP-ML được thiết kế với luồng làm việc tương tự như một "đường ống" (`pipeline`), bao gồm một chuỗi các máy chuyển đổi (`transformer`) và một công cụ ước tính (`estimator`).
 
 
-### Constructor Parameters
+### Các tham số hàm dựng
 
-* $transformers (array|Transformer[]) - sequence of objects that implements Transformer interface
-* $estimator (Estimator) - estimator that can train and predict
+* $transformers (array|Transformer[]) - chuỗi các đối tượng máy chuyển đổi (`transformer`) được implements (sử dụng interface)
+* $estimator (Estimator) - công cụ ước tính có thể học (`train`) và dự đoán (`predict`)
 
 ```
 use Phpml\Classification\SVC;
@@ -29,7 +29,7 @@ $pipeline = new Pipeline($transformers, $estimator);
 
 ### Example
 
-First our pipeline replace missing value, then normalize samples and finally train SVC estimator. Thus prepared pipeline repeats each transformation step for predicted sample.
+Đầu tiên, pipeline sẽ thay thế các giá trị bị thiếu, tiếp theo là chuẩn hóa dữ liệu và cuối cùng là thực thiện train cho mô hình ước tính SVC. Từ đó, pipeline đã được chuẩn bị sẽ tiếp hành lặp lại các bước chuyển đổi cho mẫu cần dự đoán.
 
 ```
 use Phpml\Classification\SVC;

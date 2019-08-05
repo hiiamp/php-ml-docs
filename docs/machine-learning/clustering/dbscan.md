@@ -1,13 +1,12 @@
 # DBSCAN clustering
 
-It is a density-based clustering algorithm: given a set of points in some space, it groups together points that are closely packed together (points with many nearby neighbors), marking as outliers points that lie alone in low-density regions (whose nearest neighbors are too far away). DBSCAN is one of the most common clustering algorithms and also most cited in scientific literature.
-*(source: wikipedia)*
+Đây là giải thuật phân cụm dựa trên mật độ: đặt một tập hợp điểm trong không gian, giải thuật sẽ kết hợp các điêm có quan hệ chặt chẽ với nhau (các điểm với nhiều mối quan hệ, đặc điểm (gần) giống nhau), các điểm nằm ở vùng có mật độ thấp được xem như là nhiễu (có điểm lân cận ở quá xa so với khoảng cách tối thiểu được quy định trong giải thuật). DBSCAN là một trong những thuật toán phân cụm phổ biến nhất và cũng được trích dẫn nhiều nhất trong tài liệu khoa học.
 
-### Constructor Parameters
+### Các tham số hàm dựng
 
-* $epsilon - epsilon, maximum distance between two samples for them to be considered as in the same neighborhood
-* $minSamples - number of samples in a neighborhood for a point to be considered as a core point (this includes the point itself)
-* $distanceMetric - Distance object, default Euclidean (see [distance documentation](../../math/distance.md))
+* $epsilon - epsilon, khoảng cách lớn nhất giữa hai mẫu mà chúng có thể được xem như là thuộc cùng một cụm
+* $minSamples - số lượng điểm mẫu tối thiểu quanh một điểm được xem là đặc trưng cho cụm để cụm đó không bị xem là nhiễu (bao gồm cả điểm được xem là đặc trưng)
+* $distanceMetric - Đối tượng khoảng cách, mặc định là Euclidean (xem thêm tại [distance documentation](../../math/distance.md))
 
 ```
 $dbscan = new DBSCAN($epsilon = 2, $minSamples = 3);
@@ -16,7 +15,7 @@ $dbscan = new DBSCAN($epsilon = 2, $minSamples = 3, new Minkowski($lambda=4));
 
 ### Clustering
 
-To divide the samples into clusters simply use `cluster` method. It's return the `array` of clusters with samples inside.
+Để chia mẫu thành các cụm, ta sử dụng phương thức `cluster`. Phương thức này trả về kiểu `array` của các cụm đã được chia với các mẫu bên trong.
 
 ```
 $samples = [[1, 1], [8, 7], [1, 2], [7, 8], [2, 1], [8, 9]];

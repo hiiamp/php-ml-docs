@@ -1,14 +1,14 @@
 # Accuracy
 
-Class for calculate classifier accuracy.
+Lớp hỗ trợ tính toán độ chính xác của thuật toán phân loại.
 
 ### Score
 
-To calculate classifier accuracy score use `score` static method. Parameters:
+Để tính toán độ chính xác của một kết quả phân loại, sử dụng phương thức `score` (đây là một phương thức tĩnh - static). Các tham số đầu vào như sau:
 
-* $actualLabels - (array) true sample labels
-* $predictedLabels - (array) predicted labels (e.x. from test group)
-* $normalize - (bool) normalize or not the result (default: true)
+* $actualLabels - (array) nhãn đúng của mẫu
+* $predictedLabels - (array) các nhãn được dự đoán tương ứng
+* $normalize - (bool) trả về tỉ lệ hay số nhãn giống nhau (mặc định: true - tức là trả về tỉ lệ)
 
 ### Example
 

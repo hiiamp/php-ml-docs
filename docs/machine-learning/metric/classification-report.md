@@ -1,13 +1,13 @@
 # Classification Report
 
-Class for calculate main classifier metrics: precision, recall, F1 score and support.
+Lớp tính toán các số liệu chính của một kết quả phân loại : precision, recall, F1 score and support (các số liệu này sẽ được trình bày rõ ở phía dưới).
 
 ### Report
 
-To generate report you must provide the following parameters:
+Các tham số phải cung cấp để tạo một đối tượng `report`:
 
-* $actualLabels - (array) true sample labels
-* $predictedLabels - (array) predicted labels (e.x. from test group)
+* $actualLabels - (array) nhãn đúng của mẫu
+* $predictedLabels - (array) nhãn dự đoán tương ứng
 
 ```
 use Phpml\Metric\ClassificationReport;
@@ -18,7 +18,7 @@ $predictedLabels = ['cat', 'cat', 'bird', 'bird', 'ant'];
 $report = new ClassificationReport($actualLabels, $predictedLabels);
 ```
 
-Optionally you can provide the following parameter:
+Tham số sau là tùy chọn:
 
 * $average - (int) averaging method for multi-class classification
     * `ClassificationReport::MICRO_AVERAGE` = 1
@@ -27,12 +27,13 @@ Optionally you can provide the following parameter:
 
 ### Metrics
 
-After creating the report you can draw its individual metrics:
+Sau khi khởi tạo một đối tượng `report`, bạn có thể lấy ra các số liệu sau bằng cách sử dụng các phương thức tương ứng:
 
-* precision (`getPrecision()`) - fraction of retrieved instances that are relevant
-* recall (`getRecall()`) - fraction of relevant instances that are retrieved
-* F1 score (`getF1score()`) - measure of a test's accuracy
-* support (`getSupport()`) - count of testes samples
+* precision (`getPrecision()`) - tỉ lệ đúng khi so sánh giữa kết quả dự đoán với kết quả thực
+* recall (`getRecall()`) - tỉ lệ đúng khi so sánh giữa kết quả thực với kết quả dự đoán
+* F1 score (`getF1score()`) - điểm đánh giá độ chính xác
+* support (`getSupport()`) - số lượng mẫu
+* average (`getAverage()`) - trung bình của các tham số `precision`, `recall`, `support`
 
 ```
 $precision = $report->getPrecision();

@@ -19,7 +19,7 @@ $kmeans = new KMeans(4, KMeans::INIT_RANDOM);
 
 ```
 $samples = [[1, 1], [8, 7], [1, 2], [7, 8], [2, 1], [8, 9]];
-Or if you need to keep your indentifiers along with yours samples you can use array keys as labels.
+Hoặc có thể gán nhãn theo cho từng mẫu bằng cách khai báo mảng như sau:
 $samples = [ 'Label1' => [1, 1], 'Label2' => [8, 7], 'Label3' => [1, 2]];
 
 $kmeans = new KMeans(2);

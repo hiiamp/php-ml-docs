@@ -1,25 +1,25 @@
 # MLPClassifier
 
-A multilayer perceptron (MLP) is a feedforward artificial neural network model that maps sets of input data onto a set of appropriate outputs.
+Mô hình đa lớp perceptron (multilayer perceptron - MLP) có thể xem như là một mô hình mạng thần kinh lan truyền, nó ánh xạ các tập hợp dữ liệu đầu vào đến các tập hợp dữ liệu kết quả đầu ra tương ứng.
 
-## Constructor Parameters
+## Các tham số hàm dựng
 
-* $inputLayerFeatures (int) - the number of input layer features
-* $hiddenLayers (array) - array with the hidden layers configuration, each value represent number of neurons in each layers
-* $classes (array) - array with the different training set classes (array keys are ignored)
-* $iterations (int) - number of training iterations
-* $learningRate (float) - the learning rate
-* $activationFunction (ActivationFunction) - neuron activation function
+* $inputLayerFeatures (int) - số lượng các tính năng của lớp đầu vào
+* $hiddenLayers (array) - mảng tùy chỉnh cấu hình cho các lớp ẩn (hidden layer), mỗi giá trị đại diện cho số lượng tế bào thần kinh trong mỗi lớp
+* $classes (array) - mảng chứa tập hợp các nhãn của các lớp được training (không được sử dụng mảng với key)
+* $iterations (int) - số lần lặp lại việc training
+* $learningRate (float) - tỉ lệ học
+* $activationFunction (ActivationFunction) - hàm xác thực neuron (có tác dụng chuẩn hóa output)
 
 ```
 use Phpml\Classification\MLPClassifier;
 $mlp = new MLPClassifier(4, [2], ['a', 'b', 'c']);
 
-// 4 nodes in input layer, 2 nodes in first hidden layer and 3 possible labels.
+// 4 nút trong lớp đầu vào, 2 nút trong lớp ẩn đầu tiên và 3 nhãn có thể.
 
 ```
 
-An Activation Function may also be passed in with each individual hidden layer. Example:
+Chúng ta cũng có thể sử dụng hàm xác thực neuron (`ActivationFunction`) để chuẩn hóa output cho mỗi lớp ẩn riêng lẻ. Ví dụ:
 
 ```
 use Phpml\NeuralNetwork\ActivationFunction\PReLU;
@@ -27,7 +27,7 @@ use Phpml\NeuralNetwork\ActivationFunction\Sigmoid;
 $mlp = new MLPClassifier(4, [[2, new PReLU], [2, new Sigmoid]], ['a', 'b', 'c']);
 ```
 
-Instead of configuring each hidden layer as an array, they may also be configured with Layer objects. Example:
+Thay vì sử dụng mảng để tùy chỉnh cho mỗi lớp ẩn như cách trên, ta có thể sử dụng mảng các đối tượng được khởi tạo trước đó để thay thế. Ví dụ:
 
 ```
 use Phpml\NeuralNetwork\Layer;
@@ -39,7 +39,7 @@ $mlp = new MLPClassifier(4, [$layer1, $layer2], ['a', 'b', 'c']);
 
 ## Train
 
-To train a MLP simply provide train samples and labels (as array). Example:
+Để train cho một MLP, ta cung cấp cho nó mẫu và nhãn tương ứng (dưới dạng array). Ví dụ:
 
 
 ```
@@ -49,7 +49,7 @@ $mlp->train(
 );
 ```
 
-Use partialTrain method to train in batches. Example:
+Sử dụng phương thức partialTrain để train theo nhiều đợt. Ví dụ:
 
 ```
 $mlp->partialTrain(
@@ -63,7 +63,7 @@ $mlp->partialTrain(
 
 ```
 
-You can update the learning rate between partialTrain runs:
+Tỉ lệ học (`learningRate`) có thể được cập nhật giữa các lần chạy partialTrain:
 
 ```
 $mlp->setLearningRate(0.1);
@@ -71,7 +71,7 @@ $mlp->setLearningRate(0.1);
 
 ## Predict
 
-To predict sample label use predict method. You can provide one sample or array of samples:
+Để dự đoán nhãn của mẫu ta sử dụng phương thức `predict`. Có thể dự đoán một mẫu hoặc nhiều mẫu cùng lúc bằng cách sử dụng `array` như sau:
 
 ```
 $mlp->predict([[1, 1, 1, 1], [0, 0, 0, 0]]);

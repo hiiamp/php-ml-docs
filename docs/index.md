@@ -57,40 +57,40 @@ Truy cập vào repo sau để xem ví dụ mẫu [php-ai/php-ml-examples](https
 
 ## Các tính năng
 
-* Association rule Lerning
+* Association rule Learning - Máy học xử lý quy luật của mẫu
     * [Apriori](machine-learning/association/apriori.md)
-* Classification
+* Classification - Phân loại
     * [SVC](machine-learning/classification/svc.md)
     * [k-Nearest Neighbors](machine-learning/classification/k-nearest-neighbors.md)
     * [Naive Bayes](machine-learning/classification/naive-bayes.md)
-* Regression
+* Regression - Hồi quy
     * [Least Squares](machine-learning/regression/least-squares.md)
     * [SVR](machine-learning/regression/svr.md)
-* Clustering
+* Clustering - Phân cụm
     * [k-Means](machine-learning/clustering/k-means.md)
     * [DBSCAN](machine-learning/clustering/dbscan.md)
-* Metric
+* Metric - Tính đoán độ chính xác
     * [Accuracy](machine-learning/metric/accuracy.md)
     * [Confusion Matrix](machine-learning/metric/confusion-matrix.md)
     * [Classification Report](machine-learning/metric/classification-report.md)
-* Workflow
+* Workflow - Luồng làm việc
     * [Pipeline](machine-learning/workflow/pipeline)
-* Neural Network
+* Neural Network - Mạng thần kinh
     * [Multilayer Perceptron Classifier](machine-learning/neural-network/multilayer-perceptron-classifier.md)
-* Cross Validation
+* Cross Validation - Kiểm chứng chéo
     * [Random Split](machine-learning/cross-validation/random-split.md)
     * [Stratified Random Split](machine-learning/cross-validation/stratified-random-split.md)
-* Feature Selection
+* Feature Selection - Lựa chọn tính năng
     * [Variance Threshold](machine-learning/feature-selection/variance-threshold.md)
     * [SelectKBest](machine-learning/feature-selection/selectkbest.md)
-* Preprocessing
+* Preprocessing - Tiền xử lý
     * [Normalization](machine-learning/preprocessing/normalization.md)
     * [Imputation missing values](machine-learning/preprocessing/imputation-missing-values.md)
     * LabelEncoder
-* Feature Extraction
+* Feature Extraction - Khai thác tính năng
     * [Token Count Vectorizer](machine-learning/feature-extraction/token-count-vectorizer.md)
     * [Tf-idf Transformer](machine-learning/feature-extraction/tf-idf-transformer.md)
-* Datasets
+* Datasets - Dữ liệu mẫu
     * [Array](machine-learning/datasets/array-dataset.md)
     * [CSV](machine-learning/datasets/csv-dataset.md)
     * [Files](machine-learning/datasets/files-dataset.md)
@@ -100,9 +100,9 @@ Truy cập vào repo sau để xem ví dụ mẫu [php-ai/php-ml-examples](https
         * [Iris](machine-learning/datasets/demo/iris.md)
         * [Wine](machine-learning/datasets/demo/wine.md)
         * [Glass](machine-learning/datasets/demo/glass.md)
-* Models management
+* Models management - Quản lý mô hình
     * [Persistency](machine-learning/model-manager/persistency.md)
-* Math
+* Math - Toán
     * [Distance](math/distance.md)
     * [Matrix](math/matrix.md)
     * [Set](math/set.md)

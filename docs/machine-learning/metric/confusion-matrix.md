@@ -1,10 +1,10 @@
 # Confusion Matrix
 
-Class for compute confusion matrix to evaluate the accuracy of a classification.
+Lớp hỗ trợ tính toán ra một "ma trận nhầm lẫn - `confusion matrix`" để từ đó đánh giá được độ chính xác của một thuật toán phân loại.
 
 ### Example (all targets)
 
-Compute ConfusionMatrix for all targets.
+Tính ma trận nhầm lẫn cho tất cả các mục tiêu.
 
 ```
 use Phpml\Metric\ConfusionMatrix;
@@ -25,7 +25,7 @@ $confusionMatrix = [
 
 ### Example (chosen targets)
 
-Compute ConfusionMatrix for chosen targets.
+Tính toán ma trận nhầm lẫn cho một vài mục tiêu được lựa chọn.
 
 ```
 use Phpml\Metric\ConfusionMatrix;
