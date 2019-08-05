@@ -1,12 +1,12 @@
 # Variance Threshold
 
-`VarianceThreshold` is a simple baseline approach to feature selection. 
-It removes all features whose variance doesn’t meet some threshold. 
-By default, it removes all zero-variance features, i.e. features that have the same value in all samples.
+`VarianceThreshold` (ngưỡng phương sai) là một cách đơn giản và cơ bản để tiếp cận feature selection (lựa chọn đặc tính). 
+Nó sẽ loại bỏ tất cả các đặc tính không đạt đến một ngưỡng phương sai nhất định nào đó (tức là loại bỏ các đặc tính mà độ ảnh hưởng của nó là nhỏ và "có thể bỏ qua" trong quá trình tính toán, phân loại ...). 
+Mặc định, các đặc tính có phương sai bằng 0 sẽ bị loại bỏ, i.e. đặc tính có cùng giá trị trong tất cả mẫu.
 
-## Constructor Parameters
+## Các tham số hàm dựng
 
-* $threshold (float) - features with a variance lower than this threshold will be removed (default 0.0)
+* $threshold (float) - đặc tính với phương sai nhỏ hơn ngưỡng này sẽ bị loại bỏ (mặc định: 0.0)
 
 ```php
 use Phpml\FeatureSelection\VarianceThreshold;
@@ -16,15 +16,13 @@ $transformer = new VarianceThreshold(0.15);
 
 ## Example of use
 
-As an example, suppose that we have a dataset with boolean features and 
-we want to remove all features that are either one or zero (on or off)
-in more than 80% of the samples. 
-Boolean features are Bernoulli random variables, and the variance of such 
-variables is given by
+Ví dụ, giả sử chúng ta có một tập dữ liệu chưa các đặc tính kiểu boolean và chúng ta muốn loại bỏ tất cả các đặc tính là một hoặc không (on or off)
+trong hơn 80% mẫu. 
+Các đặc tính boolean là các biến ngẫu nhiên tuân theo bernouli, và phương sai của các biến đó được tính bằng:
 ```
 Var[X] = p(1 - p)
 ```
-so we can select using the threshold .8 * (1 - .8):
+Tiếp theo, chúng ta có thể sử dụng ngưỡng (`threshold`) .8 * (1 - .8):
 
 ```php
 use Phpml\FeatureSelection\VarianceThreshold;
@@ -42,7 +40,7 @@ $samples = [[0, 1], [1, 0], [0, 0], [1, 1], [1, 0], [1, 1]];
 
 ## Pipeline
 
-`VarianceThreshold` implements `Transformer` interface so it can be used as part of pipeline:
+`VarianceThreshold` được implements `Transformer` interface vì vậy nó có thể sử dụng như một phần của pipeline:
 
 ```php
 use Phpml\FeatureSelection\VarianceThreshold;

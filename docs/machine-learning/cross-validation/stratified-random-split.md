@@ -1,14 +1,14 @@
 # Stratified Random Split
 
-Analogously to `RandomSpilt` class samples are split to two groups: train group and test group.
-Distribution of samples takes into account their targets and trying to divide them equally.
-You can adjust number of samples in each group.
+Tương tự như `RandomSpilt`, nó cũng chia mẫu thành 2 nhóm: nhóm dùng để train and và nhóm dùng để test test.
+Tuy nhiên, `StratifiedRandomSplit` cố gắng lấy mẫu test sau cho số lượng `target` (hoặc `label`) là bằng hoặc gần bằng nhau.
+Số mẫu trong mỗi nhóm có thể dễ dàng điều chỉnh.
 
-### Constructor Parameters
+### Các tham số hàm dựng
 
-* $dataset - object that implements `Dataset` interface
-* $testSize - a fraction of test split (float, from 0 to 1, default: 0.3)
-* $seed - seed for random generator (e.g. for tests)
+* $dataset - đối tượng được implements `Dataset` interface
+* $testSize - tỉ lệ tách mẫu thành nhóm dùng để test (float, từ 0 đến 1, mặc định: 0.3)
+* $seed - tạo mẫu ngẫu nhiên (e.g. for tests)
  
 ```
 $split = new StratifiedRandomSplit($dataset, 0.2);
@@ -16,16 +16,16 @@ $split = new StratifiedRandomSplit($dataset, 0.2);
 
 ### Samples and labels groups
 
-To get samples or labels from test and train group you can use getters:
+Để lấy được mẫu và nhãn tương ứng của nhóm test và nhóm train, sử dụng getters như sau:
 
 ```
 $dataset = new StratifiedRandomSplit($dataset, 0.3, 1234);
 
-// train group
+// nhóm train
 $dataset->getTrainSamples();
 $dataset->getTrainLabels();
 
-// test group
+// nhóm test
 $dataset->getTestSamples();
 $dataset->getTestLabels();
 ```
@@ -41,4 +41,4 @@ $dataset = new ArrayDataset(
 $split = new StratifiedRandomSplit($dataset, 0.5);
 ```
 
-Split will have equals amount of each target. Two of the target `a` and two of `b`.
+Lượng mẫu của mỗi `target` trong `$split` sẽ bằng nhau. 2 mẫu với target `a` và 2 mẫu với target `b`.

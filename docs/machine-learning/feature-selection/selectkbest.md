@@ -1,11 +1,11 @@
 # SelectKBest
 
-`SelectKBest` - select features according to the k highest scores.
+`SelectKBest` - lựa chọn k đặc tính có ảnh hưởng lớn nhất.
 
-## Constructor Parameters
+## Các tham số hàm dựng
 
-* $k (int) - number of top features to select, rest will be removed (default: 10)
-* $scoringFunction (ScoringFunction) - function that take samples and targets and return array with scores (default: ANOVAFValue)
+* $k (int) - số đặc tính được lựa chọn, phần còn lại sẽ bị loại bỏ (default: 10)
+* $scoringFunction (ScoringFunction) - hàm thực hiện tính toán từ `samples` và `targets` để trả về mảng với điểm số tương ứng (mặc định: ANOVAFValue)
 
 ```php
 use Phpml\FeatureSelection\SelectKBest;
@@ -15,7 +15,7 @@ $transformer = new SelectKBest(2);
 
 ## Example of use
 
-As an example we can perform feature selection on Iris dataset to retrieve only the two best features as follows:
+Để làm ví dụ, chúng ta có thể thực hiện lựa chọn đặc tính trên tập dữ liệu Iris để chỉ lấy 2 đặc tính tốt (ảnh hưởng) nhất như sau:
 
 ```php
 use Phpml\FeatureSelection\SelectKBest;
@@ -33,9 +33,9 @@ $samples[0] = [1.4, 0.2];
 
 ## Scores
 
-You can get a array with the calculated score for each feature. 
-A higher value means that a given feature is better suited for learning.
-Of course, the rating depends on the scoring function used.
+Bạn sẽ nhận được một mảng với số điểm đánh giá độ ảnh hưởng cho mỗi đặc tính. 
+Điểm số các cao thì độ ảnh hưởng của đặc tính đó càng lớn, tức là đặc tính càng hiệu quả hơn khi được sử dụng để train.
+Tất nhiên, những điểm số này phụ thuộc, được tính bằng `ScoringFunction` đã sử dụng.
 
 ```
 use Phpml\FeatureSelection\SelectKBest;
@@ -62,23 +62,27 @@ $selector->scores();
 
 ## Scoring function
 
-Available scoring functions:
+Các hàm đánh giá đặc tính có sẵn:
 
-For classification:
+Đối với phân loại (classification):
  - **ANOVAFValue**
-   The one-way ANOVA tests the null hypothesis that 2 or more groups have the same population mean.
-   The test is applied to samples from two or more groups, possibly with differing sizes.
+   Phân tích phương sai một yếu tố (the one-way ANOVA kiểm tra một giả thuyêt khống rằng có 2 hoặc nhiều nhóm có cùng ý nghĩa.
+   Kiểm tra này được thực hiện cho các mẫu có từ hai nhóm trở lên, và kích cỡ của mỗi nhóm là có thể khác nhau.
 
-For regression:
+Đối với hồi quy (regression):
  - **UnivariateLinearRegression**  
-   Quick linear model for testing the effect of a single regressor, sequentially for many regressors.
-   This is done in 2 steps:
-     - 1. The cross correlation between each regressor and the target is computed, that is, ((X[:, i] - mean(X[:, i])) * (y - mean_y)) / (std(X[:, i]) *std(y)).
-     - 2. It is converted to an F score 
+   Mô hình tuyến tính nhanh (quick linear model) kiểm tra độ hiệu quả của một biến hồi quy đơn hoặc tuần tự cho nhiều biến hồi quy.
+   
+   Điều này được thực hiện trong 2 bước:
+   
+     - 1. Mối tương quan chéo giữa mỗi biến hồi quy và kết quả đích được tính toán như sau:
+      ((X[:, i] - mean(X[:, i])) * (y - mean_y)) / (std(X[:, i]) *std(y))
+ 
+     - 2. Chuyển đối kết quả sang điểm số. 
 
 ## Pipeline
 
-`SelectKBest` implements `Transformer` interface so it can be used as part of pipeline:
+`SelectKBest` được implements `Transformer` interface vì vậy chúng ta có thể sử dụng như là một phần của pipeline:
 
 ```php
 use Phpml\FeatureSelection\SelectKBest;

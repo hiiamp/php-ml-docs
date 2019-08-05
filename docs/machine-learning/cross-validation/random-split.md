@@ -1,12 +1,12 @@
 # Random Split
 
-One of the simplest methods from Cross-validation is implemented as `RandomSpilt` class. Samples are split to two groups: train group and test group. You can adjust number of samples in each group.
+Hay còn gọi là phương pháp "Hold-out", đây là một trong những phương pháp đơn giản nhất của kiểm chứng chéo bằng cách sử dụng lớp `RandomSpilt`. Các mẫu sẽ được chia thành 2 nhóm: 1 nhóm dùng để train và nhóm còn lại dùng để test lại mô hình. Số mẫu trong mỗi nhóm có thể dễ dàng điều chỉnh.
 
-### Constructor Parameters
+### Các tham số hàm dựng
 
-* $dataset - object that implements `Dataset` interface
-* $testSize - a fraction of test split (float, from 0 to 1, default: 0.3)
-* $seed - seed for random generator (e.g. for tests)
+* $dataset - đối tượng được implements `Dataset` interface
+* $testSize - tỉ lệ tách mẫu thành nhóm dùng để test (float, từ 0 đến 1, mặc định: 0.3)
+* $seed - tạo mẫu ngẫu nhiên (e.g. for tests)
  
 ```
 $randomSplit = new RandomSplit($dataset, 0.2);
@@ -14,16 +14,16 @@ $randomSplit = new RandomSplit($dataset, 0.2);
 
 ### Samples and labels groups
 
-To get samples or labels from test and train group you can use getters:
+Để lấy được mẫu và nhãn tương ứng của nhóm test và nhóm train, sử dụng getters như sau:
 
 ```
 $dataset = new RandomSplit($dataset, 0.3, 1234);
 
-// train group
+// nhóm train
 $dataset->getTrainSamples();
 $dataset->getTrainLabels();
 
-// test group
+// nhóm test
 $dataset->getTestSamples();
 $dataset->getTestLabels();
 ```
