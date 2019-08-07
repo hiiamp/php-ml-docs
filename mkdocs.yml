@@ -51,4 +51,3 @@ pages:
     - Matrix: math/matrix.md
     - Set: math/set.md
     - Statistic: math/statistic.md
-theme: readthedocs
