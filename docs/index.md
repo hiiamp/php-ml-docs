@@ -80,7 +80,7 @@ Truy cập vào repo sau để xem ví dụ mẫu [php-ai/php-ml-examples](https
 * Cross Validation - Kiểm chứng chéo
     * [Random Split](machine-learning/cross-validation/random-split.md)
     * [Stratified Random Split](machine-learning/cross-validation/stratified-random-split.md)
-* Feature Selection - Lựa chọn tính năng
+* Feature Selection - Lọc theo thuộc tính
     * [Variance Threshold](machine-learning/feature-selection/variance-threshold.md)
     * [SelectKBest](machine-learning/feature-selection/selectkbest.md)
 * Preprocessing - Tiền xử lý
